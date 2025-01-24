@@ -1,4 +1,4 @@
-var events = require('events')
+var EventEmitter = require('eventemitter3')
 var inherits = require('inherits')
 
 module.exports = LRU
@@ -7,7 +7,7 @@ function LRU (opts) {
   if (!(this instanceof LRU)) return new LRU(opts)
   if (typeof opts === 'number') opts = {max: opts}
   if (!opts) opts = {}
-  events.EventEmitter.call(this)
+  EventEmitter.call(this)
   this.cache = {}
   this.head = this.tail = null
   this.length = 0
@@ -15,7 +15,7 @@ function LRU (opts) {
   this.maxAge = opts.maxAge || 0
 }
 
-inherits(LRU, events.EventEmitter)
+inherits(LRU, EventEmitter)
 
 Object.defineProperty(LRU.prototype, 'keys', {
   get: function () { return Object.keys(this.cache) }
